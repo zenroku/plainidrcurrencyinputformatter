@@ -51,7 +51,7 @@ function cleanBeginWithZero(cleanStr){
     let isBeginZero = true;
     let newValue = '';
     for (let i = 0; i < cleanStr.length; i++){
-        if (cleanStr.charAt(i) == '0'){
+        if (cleanStr.charAt(i) == '0' && isBeginZero){
             continue
         } 
         isBeginZero = false
