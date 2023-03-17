@@ -5,12 +5,13 @@ function thousandSep(id) {
     delayTimer = setTimeout(() => {
         const value = document.getElementById(id).value;
         const regx = /[0-9,]+/g;
-        const cleanVal = (value.match(regx) || []).join('');
+        let cleanVal = (value.match(regx) || []).join('');
+        cleanVal = cleanBeginWithZero(cleanVal);
         const splitCommas = cleanVal.split(',')
         let returnVal = '';
         if (splitCommas.length > 1) {
-            let actualVal = splitCommas[0]
-            let decVal = splitCommas[1]
+            const actualVal = splitCommas[0]
+            const decVal = splitCommas[1]
             if (decVal.trim() !== '') {
                 returnVal += (dotSeparator(actualVal) + ',' + decVal)
             } else {
@@ -36,7 +37,7 @@ function dotSeparator(num) {
 
     if (threeNum.length > 0) arr.unshift(threeNum);
 
-    returnVal = '';
+    let returnVal = '';
     for (let i = 0; i < arr.length; i++) {
         returnVal += arr[i].join('')
         if (i != (arr.length - 1)) {
@@ -44,4 +45,18 @@ function dotSeparator(num) {
         }
     }
     return returnVal;
+}
+
+function cleanBeginWithZero(cleanStr){
+    let isBeginZero = true;
+    let newValue = '';
+    for (let i = 0; i < cleanStr.length; i++){
+        if (cleanStr.charAt(i) == '0'){
+            continue
+        } 
+        isBeginZero = false
+        newValue += cleanStr.charAt(i)
+    }
+
+    return newValue;
 }
